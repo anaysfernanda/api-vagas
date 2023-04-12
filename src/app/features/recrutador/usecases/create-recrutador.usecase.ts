@@ -13,15 +13,6 @@ export class CreateRecrutadorUsecase {
   public async execute(data: CreateRecrutadorParams): Promise<Return> {
     // 1 - Validar se o usuario ja existe (username)
     const repository = new UsuarioRepository();
-    const usuario = await repository.getByUsername(data.username);
-
-    if (usuario !== null) {
-      return {
-        ok: false,
-        code: 400,
-        message: "Usuário já existe!",
-      };
-    }
 
     // 2 - criar model Recrutador
     const recrutador = new Recrutador(

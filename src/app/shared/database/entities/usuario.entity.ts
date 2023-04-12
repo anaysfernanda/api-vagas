@@ -1,5 +1,12 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { TipoUsuario } from "../../../models/usuario.model";
+import { VagaEntity } from "./vaga.entity";
 
 @Entity("usuario")
 export class UsuarioEntity {
@@ -36,4 +43,7 @@ export class UsuarioEntity {
     name: "dthr_cadastro",
   })
   dthrCadastro: Date;
+
+  @OneToMany(() => VagaEntity, (vaga) => vaga.usuario)
+  vagas: VagaEntity[];
 }

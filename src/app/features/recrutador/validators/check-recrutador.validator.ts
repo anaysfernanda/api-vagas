@@ -3,7 +3,7 @@ import { ApiError } from "../../../shared/errors/api.error";
 import { JwtAdapter } from "../../../shared/util/jwt.adapter";
 import { TipoUsuario } from "../../../models/usuario.model";
 
-export const checkLoginValidator = (
+export const checkRecrutadorValidator = (
   req: Request,
   res: Response,
   next: NextFunction

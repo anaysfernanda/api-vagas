@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ApiError } from "../../../shared/errors/api.error";
-import { ListRecrutadoresUsecase } from "../usercases/list.recrutadores.usecase";
-import { CreateRecrutadorUsecase } from "../usercases/create-recrutador.usecase";
+import { ListRecrutadoresUsecase } from "../usecases/list.recrutadores.usecase";
+import { CreateRecrutadorUsecase } from "../usecases/create-recrutador.usecase";
 
 export class RecrutadorController {
   public async list(req: Request, res: Response) {

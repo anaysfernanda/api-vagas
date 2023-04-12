@@ -14,7 +14,7 @@ export class Usuario {
     public username: string,
     public password: string,
     public tipo: TipoUsuario,
-    public nomeEmpresa: string
+    public nomeEmpresa?: string
   ) {
     this._id = createUuid();
   }
@@ -25,7 +25,7 @@ export class Usuario {
     username: string,
     password: string,
     tipo: TipoUsuario,
-    nomeEmpresa: string
+    nomeEmpresa?: string
   ) {
     const usuario = new Usuario(nome, username, password, tipo, nomeEmpresa);
 
