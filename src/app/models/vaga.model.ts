@@ -1,17 +1,43 @@
-import { Usuario } from "./usuario.model";
-import { v4 as createuuid } from "uuid";
+import { Recrutador } from "./recrutador.model";
+import { v4 as createUuid } from "uuid";
 
 export class Vaga {
   private _id: string;
 
   constructor(
     public descricao: string,
-    public empresa: string,
+    public nomeEmpresa: string,
     public dtLimite: Date,
     public indAtivo: boolean,
-    public recrutador: Usuario,
-    public maxCandidato?: number
+    public recrutador: Recrutador,
+    public maxCandidatos?: number
   ) {
-    this._id = createuuid();
+    this._id = createUuid();
+  }
+
+  public get id() {
+    return this._id;
+  }
+
+  public static create(
+    id: string,
+    descricao: string,
+    nomeEmpresa: string,
+    dtLimite: Date,
+    indAtivo: boolean,
+    recrutador: Recrutador,
+    maxCandidatos?: number
+  ) {
+    const vaga = new Vaga(
+      descricao,
+      nomeEmpresa,
+      dtLimite,
+      indAtivo,
+      recrutador,
+      maxCandidatos
+    );
+
+    vaga._id = id;
+    return vaga;
   }
 }

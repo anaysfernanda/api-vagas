@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -7,6 +8,7 @@ import {
   PrimaryColumn,
 } from "typeorm";
 import { UsuarioEntity } from "./usuario.entity";
+import { Recrutador } from "../../../models/recrutador.model";
 
 @Entity("vaga")
 export class VagaEntity {
@@ -17,7 +19,7 @@ export class VagaEntity {
   descricao: string;
 
   @Column()
-  empresa: string;
+  nomeEmpresa: string;
 
   @Column({
     name: "dt_limite",
@@ -26,6 +28,7 @@ export class VagaEntity {
 
   @Column({
     name: "ind_ativo",
+    default: true,
   })
   indAtivo: boolean;
 
@@ -36,11 +39,21 @@ export class VagaEntity {
   })
   maxCandidatos: number;
 
+  @Column({
+    name: "id_recrutador",
+  })
+  idRecrutador: string;
+
   @ManyToOne(() => UsuarioEntity, {
     onDelete: "CASCADE",
   })
   @JoinColumn({
-    name: "id_usuario",
+    name: "id_recrutador",
   })
-  usuario: UsuarioEntity;
+  recrutador: UsuarioEntity;
+
+  @CreateDateColumn({
+    name: "dthr_cadastro",
+  })
+  dthrCadastro: Date;
 }

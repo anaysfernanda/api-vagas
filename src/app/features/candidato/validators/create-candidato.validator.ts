@@ -24,6 +24,7 @@ export class CreateCandidatoValidator {
         RequestError.fieldNotProvided(res, "Password");
       }
 
+      //to do - fazer validação separada
       const repository = new UsuarioRepository();
       const usuario = await repository.getByUsername(username);
 
