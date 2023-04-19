@@ -2,17 +2,36 @@ import { TypeormConnection } from "../../../../main/database/typeorm.connection"
 import { TipoUsuario, Usuario } from "../../../models/usuario.model";
 import { UsuarioEntity } from "../../../shared/database/entities/usuario.entity";
 
+interface GetParams {
+  username: string;
+  password?: string;
+  tipo?: TipoUsuario;
+}
+
 export class UsuarioRepository {
   private repository =
     TypeormConnection.connection.getRepository(UsuarioEntity);
 
-  public async getByUsername(
+  public async getByUsernameAndType(
     username: string,
-    password?: string
+    tipo: TipoUsuario
   ): Promise<Usuario | null> {
     const result = await this.repository.findOneBy({
       username,
-      password,
+      tipo,
+    });
+    if (!result) {
+      return null;
+    }
+
+    return UsuarioRepository.mapEntityToModel(result);
+  }
+
+  public async getByUsername(params: GetParams): Promise<Usuario | null> {
+    const result = await this.repository.findOneBy({
+      username: params.username,
+      password: params.password,
+      tipo: params.tipo,
     });
 
     if (!result) {

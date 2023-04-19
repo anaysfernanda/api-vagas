@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ApiError } from "../../../shared/errors/api.error";
 import { RequestError } from "../../../shared/errors/request.error";
 import { UsuarioRepository } from "../../usuario/database/usuario.repository";
+import { TipoUsuario } from "../../../models/usuario.model";
 
 export class CreateRecrutadorValidator {
   public static async validate(
@@ -29,7 +30,10 @@ export class CreateRecrutadorValidator {
       }
 
       const repository = new UsuarioRepository();
-      const usuario = await repository.getByUsername(username);
+      const usuario = await repository.getByUsernameAndType(
+        username,
+        TipoUsuario.Recrutador
+      );
 
       if (usuario !== null) {
         RequestError.invalidData(res, "Username já existe!");

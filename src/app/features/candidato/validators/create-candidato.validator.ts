@@ -29,7 +29,7 @@ export class CreateCandidatoValidator {
       const usuario = await repository.getByUsername(username);
 
       if (usuario !== null) {
-        RequestError.invalidData(res, "Username já existe!");
+        return RequestError.invalidData(res, "Username já existe!");
       }
 
       next();

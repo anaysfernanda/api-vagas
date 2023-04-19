@@ -11,7 +11,7 @@ interface CreateCandidatoParams {
 export class CreateCandidatoUsecase {
   public async execute(data: CreateCandidatoParams): Promise<Return> {
     const repository = new UsuarioRepository();
-    const usuario = await repository.getByUsername(data.username);
+    const usuario = await repository.getByUsername({ username: data.username });
 
     if (usuario !== null) {
       return {
