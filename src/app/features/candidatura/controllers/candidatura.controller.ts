@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ApiError } from "../../../shared/errors/api.error";
 import { AplicacaoUsecase } from "../usecases/aplicacao.usecase";
+import { ListarCandidaturasUsecase } from "../usecases/list-candidaturas.usecase";
 
 export class CandidaturaController {
   public async create(req: Request, res: Response) {
@@ -18,6 +19,21 @@ export class CandidaturaController {
       return res.status(result.code).send(result);
     } catch (error: any) {
       ApiError.serverError(res, error);
+    }
+  }
+
+  public async listCandidaturas(req: Request, res: Response) {
+    try {
+      const candidato = req.headers["usuario"] as string;
+      const candidatoDecoded = JSON.parse(candidato);
+
+      const result = await new ListarCandidaturasUsecase().execute(
+        candidatoDecoded._id
+      );
+
+      return res.status(result.code).send(result.data);
+    } catch (error: any) {
+      return ApiError.serverError(res, error);
     }
   }
 }

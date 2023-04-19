@@ -15,10 +15,23 @@ export class CandidaturaRepository {
       relations: ["candidato", "vaga"],
     });
 
-    console.log(result);
+    return result.map((item) => this.mapEntityToModel(item));
+  }
+
+  public async getById(idCandidato: string) {
+    const result = await this.repository.find({
+      where: {
+        idCandidato,
+      },
+      relations: {
+        candidato: true,
+        vaga: { recrutador: true },
+      },
+    });
 
     return result.map((item) => this.mapEntityToModel(item));
   }
+
   public mapEntityToModel(entity: CandidaturaEntity): Candidatura {
     const candidato = UsuarioRepository.mapEntityToModel(entity.candidato);
     const vaga = VagaRepository.mapEntityToModel(entity.vaga);

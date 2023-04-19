@@ -12,5 +12,11 @@ export const candidaturaRoutes = () => {
     new CandidaturaController().create
   );
 
+  router.get(
+    "/",
+    [checkLoginValidator, checkLoginCandidatoValidator],
+    new CandidaturaController().listCandidaturas
+  );
+
   return router;
 };
