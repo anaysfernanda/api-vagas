@@ -22,7 +22,7 @@ export class LoginUsecase {
       };
     }
 
-    const token = JwtAdapter.createToken(usuario);
+    const token = JwtAdapter.createToken(usuario.toJson());
 
     return {
       ok: true,
