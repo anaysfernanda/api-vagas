@@ -18,5 +18,7 @@ export const candidaturaRoutes = () => {
     new CandidaturaController().listCandidaturas
   );
 
+  router.get("/listagem", new CandidaturaController().listAllCandidaturas);
+
   return router;
 };

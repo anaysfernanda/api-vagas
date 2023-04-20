@@ -4,16 +4,28 @@ import { CandidaturaEntity } from "../../../shared/database/entities/candidatura
 import { UsuarioRepository } from "../../usuario/database/usuario.repository";
 import { VagaRepository } from "../../vaga/database/vaga.repository";
 
+interface CandidaturaParams {
+  idVaga?: string;
+  idCandidato?: string;
+}
+
 export class CandidaturaRepository {
   private repository =
     TypeormConnection.connection.getRepository(CandidaturaEntity);
-  public async list(idVaga: string) {
+  public async listByVaga(params: CandidaturaParams) {
     const result = await this.repository.find({
       where: {
-        idVaga,
+        idVaga: params.idVaga,
+        idCandidato: params.idCandidato,
       },
       relations: ["candidato", "vaga", "vaga.recrutador"],
     });
+
+    return result.map((item) => this.mapEntityToModel(item));
+  }
+
+  public async listAll() {
+    const result = await this.repository.find();
 
     return result.map((item) => this.mapEntityToModel(item));
   }

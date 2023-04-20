@@ -41,7 +41,7 @@ export class AplicacaoUsecase {
 
     const repository = new CandidaturaRepository();
 
-    const candidatos = await repository.list(vaga.id);
+    const candidatos = await repository.listByVaga({ idVaga: vaga.id });
 
     if (vaga.maxCandidatos) {
       if (candidatos.length >= vaga.maxCandidatos) {
