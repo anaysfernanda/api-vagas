@@ -75,6 +75,8 @@ export class AplicacaoUsecase {
     const newCandidatura = new Candidatura(new Date(), false, candidato, vaga);
     await repository.create(newCandidatura);
     await new CacheRepository().delete(`listaCandidatura:${data.idCandidato}`);
+    await new CacheRepository().delete(`listaCandidaturas`);
+
     return {
       ok: true,
       code: 201,

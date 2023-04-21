@@ -6,7 +6,7 @@ export class ListAllCandidaturasUsecase {
   public async execute(): Promise<Return> {
     const cacheRepository = new CacheRepository();
 
-    const cacheResult = await cacheRepository.get("listaCandituras");
+    const cacheResult = await cacheRepository.get("listaCandidaturas");
 
     if (cacheResult) {
       return {
@@ -20,8 +20,12 @@ export class ListAllCandidaturasUsecase {
     const candidaturaRepository = new CandidaturaRepository();
 
     const listaCandidaturas = await candidaturaRepository.listAll();
+    // console.log(listaCandidaturas);
 
-    await cacheRepository.set(`listaCandidaturas`, listaCandidaturas);
+    const result = await cacheRepository.set(
+      `listaCandidaturas`,
+      listaCandidaturas
+    );
 
     if (!listaCandidaturas) {
       return {

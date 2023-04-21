@@ -25,7 +25,9 @@ export class CandidaturaRepository {
   }
 
   public async listAll() {
-    const result = await this.repository.find();
+    const result = await this.repository.find({
+      relations: ["candidato", "vaga", "vaga.recrutador"],
+    });
 
     return result.map((item) => this.mapEntityToModel(item));
   }
