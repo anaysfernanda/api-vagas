@@ -53,17 +53,6 @@ export class AplicacaoUsecase {
       }
     }
 
-    // if (
-    //     candidatos.some(
-    //         (candidatura) => candidatura.candidato.id === data.idCandidato
-    //     )
-    // ) {
-    //     return {
-    //         ok: false,
-    //         code: 400,
-    //         message: "Você já se candidatou à esta vaga.",
-    //     };
-    // }
     if (AplicacaoValidator.candidaturaDuplicada(candidatos, data.idCandidato)) {
       return {
         ok: false,

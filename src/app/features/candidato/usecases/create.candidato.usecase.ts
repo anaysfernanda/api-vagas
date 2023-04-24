@@ -1,4 +1,5 @@
 import { Candidato } from "../../../models/candidato.model";
+import { CacheRepository } from "../../../shared/database/repositories/cache.repository";
 import { Return } from "../../../shared/util/return.contract";
 import { UsuarioRepository } from "../../usuario/database/usuario.repository";
 
@@ -25,6 +26,7 @@ export class CreateCandidatoUsecase {
 
     const result = await repository.create(candidato);
 
+    await new CacheRepository().delete(`listaCandidatos`);
     return {
       ok: true,
       code: 201,

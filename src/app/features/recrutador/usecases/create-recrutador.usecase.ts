@@ -1,4 +1,5 @@
 import { Recrutador } from "../../../models/recrutador.model";
+import { CacheRepository } from "../../../shared/database/repositories/cache.repository";
 import { Return } from "../../../shared/util/return.contract";
 import { UsuarioRepository } from "../../usuario/database/usuario.repository";
 
@@ -25,6 +26,8 @@ export class CreateRecrutadorUsecase {
 
     const result = await repository.create(recrutador);
     // 4 - retornar o usuario criado
+
+    await new CacheRepository().delete(`listaRecrutadores`);
 
     return {
       ok: true,
