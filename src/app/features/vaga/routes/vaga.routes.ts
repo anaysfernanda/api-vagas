@@ -6,7 +6,8 @@ import { checkRecrutadorValidator } from "../../recrutador/validators/check-recr
 export const vagaRoutes = () => {
   const router = Router();
 
-  router.get("/", new VagaController().list);
+  router.get("/", new VagaController().listAllVagas);
+  router.get("/:idVaga", new VagaController().getVaga);
   router.post(
     "/",
     [checkLoginValidator, checkRecrutadorValidator],

@@ -1,5 +1,6 @@
 import { Vaga } from "../../../models/vaga.model";
 import { UsuarioEntity } from "../../../shared/database/entities/usuario.entity";
+import { CacheRepository } from "../../../shared/database/repositories/cache.repository";
 import { Return } from "../../../shared/util/return.contract";
 import { UsuarioRepository } from "../../usuario/database/usuario.repository";
 import { VagaRepository } from "../database/vaga.repository";
@@ -49,6 +50,9 @@ export class CreateVagaUsecase {
 
     const repository = new VagaRepository();
     await repository.create(vaga);
+
+    await new CacheRepository().delete(`listaVagas`);
+    await new CacheRepository().delete(`listaVagas:${vaga.id}`);
 
     return {
       ok: true,
